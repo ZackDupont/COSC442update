@@ -33,6 +33,7 @@ if not file then
 else
 		file:write("Continued to level 5\n")
 end
+	composer.removeScene("level4")
 	composer.removeScene("tran4")
 	composer.gotoScene( "level5", "fade", 500 )
 	return true
