@@ -3,11 +3,6 @@
 -- main.lua
 --
 -----------------------------------------------------------------------------------------
--- Variables for shop purchases
-_G.money = 100000
-_G.hat = false
-_G.glasses = false
-_G.bait = false
 
 --Start stat tracking
 _G.path = system.pathForFile( "statTracker.txt", system.DocumentsDirectory)
