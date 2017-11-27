@@ -22,6 +22,7 @@ local credBtn
 local testBtn
 local title
 local bgMusic
+local moneyBtn
 
 -----------------------------------------------------------------------------------------
 
@@ -74,6 +75,18 @@ local function onCreditRelease(event)
 	return true
 end
 
+local function onMoneyRelease(event)
+	--Log Press
+	if not file then
+		print( "File error: " .. errorString )
+	else
+		file:write("Money Mode Played\n")
+	end
+
+	composer.gotoScene ("challenge", "fade", 500)
+	return true
+end 
+
 -- Music Reset Handler
 -- local function resetBgMusic(event)
 --     if event.completed == false and event.phase == "stopped" then
@@ -116,7 +129,7 @@ function scene:create( event )
 	-- Menu Buttons
 	-- Start Button
 	playBtn = widget.newButton{
-		left = 650,
+		left = 700,
 		top = 1150,
 		width = 600,
 		height = 250,
@@ -132,7 +145,7 @@ function scene:create( event )
 
 	-- Story Button
 	storyBtn = widget.newButton{
-		left = 350,
+		left = 400,
 		top = 1150,
 		width = 600,
 		height = 250,
@@ -148,7 +161,7 @@ function scene:create( event )
 
 	-- Credits Button
 	credBtn = widget.newButton{
-		left = 50,
+		left = 100,
 		top = 1150,
 		width = 600,
 		height = 250,
@@ -178,6 +191,21 @@ function scene:create( event )
 	}
 	testBtn.rotation = 90
 
+	moneyBtn = widget.newButton{
+		left = -480,
+		top = 1150,
+		width = 1200,
+		height = 250,
+		defaultFile = "images/button1.png",
+		overFile = "images/button2.png",
+		label = "Money Mode",
+		font = native.DroidSans,
+		fontSize = 120,
+		labelColor = {default = {0.3,0.21,1}, over = {0,0,0}},
+		onRelease = onMoneyRelease
+	}
+	moneyBtn.rotation = 90
+
 	-- all display objects must be inserted into group
 	sceneGroup:insert(bgMain)
 	sceneGroup:insert(title)
@@ -185,6 +213,7 @@ function scene:create( event )
 	sceneGroup:insert(storyBtn)
 	sceneGroup:insert(credBtn)
 	sceneGroup:insert(testBtn)
+	sceneGroup:insert(moneyBtn)
 
 end
 
@@ -226,6 +255,12 @@ function scene:destroy( event )
 		playBtn:removeSelf()
 		playBtn = nil
 	end
+
+	if moneyBtn then
+		playBtn:removeSelf()
+		playBtn = nil
+	end
+
 	file = nil
 end
 ---------------------------------------------------------------------------------

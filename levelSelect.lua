@@ -21,7 +21,6 @@ local statBtn
 local credBtn
 local title
 local bgMusic
-local shop
 
 -----------------------------------------------------------------------------------------
 
@@ -33,7 +32,6 @@ if not file then
 else
 		file:write("Returned home\n")
 end
-	
 	composer.gotoScene( "menu", "fade", 500 )
 	return true
 end
@@ -46,7 +44,6 @@ if not file then
 else
 		file:write("started the tutorial \n")
 end
-	
 	composer.gotoScene( "tutorial", "fade", 500 )
 	return true
 end
@@ -60,7 +57,6 @@ if not file then
 else
 		file:write("started from level 1\n")
 end
-	
 	composer.gotoScene( "level1", "fade", 500 )
 	return true
 end
@@ -73,7 +69,6 @@ if not file then
 else
 		file:write("started from level 2\n")
 end
-	
 	composer.gotoScene( "level2", "fade", 500 )
 	return true
 end
@@ -86,7 +81,6 @@ if not file then
 else
 		file:write("started from level 3\n")
 end
-	
 	composer.gotoScene( "level3", "fade", 500 )
 	return true
 end
@@ -99,7 +93,6 @@ if not file then
 else
 		file:write("started from level 4\n")
 end
-	
 	composer.gotoScene( "level4", "fade", 500 )
 	return true
 end
@@ -112,22 +105,10 @@ if not file then
 else
 		file:write("started from level 5\n")
 end
-	
 	composer.gotoScene( "level5", "fade", 500 )
 	return true
 end
 
-local function onShopRelease(event)
-	--Log press
-if not file then
-		print( "File error: " .. errorString )
-else
-		file:write("Returned home\n")
-end
-	
-	composer.gotoScene( "shop", "fade", 500 )
-	return true
-end
 -- Music Reset Handler
 -- local function resetBgMusic(event)
 --     if event.completed == false and event.phase == "stopped" then
@@ -170,7 +151,7 @@ function scene:create( event )
 	-- Menu Buttons
 	homeBtn = widget.newButton{
 		left = -150,
-		top = 750,
+		top = 1150,
 		width = 750,
 		height = 250,
 		defaultFile = "images/button1.png",
@@ -273,21 +254,6 @@ function scene:create( event )
 	}
 	level5Btn.rotation = 90
 
-	-- Menu Buttons
-	shopBtn = widget.newButton{
-		left = -150,
-		top = 1550,
-		width = 750,
-		height = 250,
-		defaultFile = "images/button1.png",
-		overFile = "images/button2.png",
-		label = "Shop",
-		font = native.DroidSans,
-		fontSize = 120,
-		labelColor = {default = {0.7,0.01,1}, over = {0,0,0}},
-		onRelease = onShopRelease
-	}
-	shopBtn.rotation = 90
 	-- all display objects must be inserted into group
 	sceneGroup:insert(bgMain)
 	sceneGroup:insert(title)
@@ -298,7 +264,6 @@ function scene:create( event )
 	sceneGroup:insert(level3Btn)
 	sceneGroup:insert(level4Btn)
 	sceneGroup:insert(level5Btn)
-	sceneGroup:insert(shopBtn)
 
 end
 
