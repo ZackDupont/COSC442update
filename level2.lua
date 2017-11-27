@@ -35,7 +35,7 @@ function scene:create( event )
 		else
 	    	file:write("Exited game, returned to menu\n")
 		end
-
+		composer.removeScene("level2")
 		composer.gotoScene( "menu", "fade", 500 )
 		return true
 	end
@@ -149,6 +149,12 @@ function scene:create( event )
 	local mainGroup = display.newGroup()
 	local uiGroup = display.newGroup()
 
+	-- Money
+  local balance = display.newText(uiGroup, "Money: $" .. _G.money, 1150, 450, native.systemFont, 140 )
+  balance:setFillColor(0,0,0)
+  balance.rotation = 90
+	sceneGroup:insert(balance)
+
 	local word = display.newText(uiGroup, "H _ N D ", 1300, 2000, native.systemFont, 240)
 	word.rotation = 90
 	word:setFillColor(0,0,0)
@@ -181,6 +187,33 @@ function scene:create( event )
 					fLine.strokeWidth = 5
 					sceneGroup:insert(fLine)
 
+					-- Purchased Items
+					if _G.hat == true then
+						local hat = display.newImageRect("images/hat.png", 150, 150)
+									hat.x = monkey.x + 185
+									hat.y = monkey.y - 65
+									hat.rotation = 90
+									sceneGroup:insert(hat)
+					end
+
+					if _G.glasses == true then
+					local glasses = display.newImageRect("images/glasses.png", 50, 50)
+								glasses.x = monkey.x + 125
+								glasses.y = monkey.y - 80
+								glasses.rotation = 90
+								sceneGroup:insert(glasses)
+					end
+
+					local worm = display.newImageRect("images/worm.png", 100, 100)
+								worm.x = hook.x
+								worm.y = hook.y
+								worm.rotation = 90
+								sceneGroup:insert(worm)
+
+					if _G.bait == false then
+						display.remove(worm)
+					end
+
 	-- Distance
 	function distance (fish)
 		d = math.sqrt(math.pow(hook.x - fish.x, 2) + math.pow(hook.y - fish.y, 2))
@@ -195,6 +228,7 @@ function scene:create( event )
 					fLine.strokeWidth = 5
 					sceneGroup:insert(fLine)
 					hook.x = hook.x - 40
+					worm.x = hook.x
 					return true
 	end
 
@@ -206,6 +240,7 @@ function scene:create( event )
 					sceneGroup:insert(fLine)
 					if hook.x < frod.x + 115 then
 						hook.x = hook.x + 40
+						worm.x = hook.x
 					end
 					return true
 	end
@@ -256,6 +291,7 @@ function scene:create( event )
 		    file:write("Level 2 completed in "..timeTaken.." seconds\n")
 		end
 
+		transition.cancel()
 		composer.removeScene("level2")
 		composer.gotoScene( "tran2", "fade", 500 )
 	end
@@ -264,11 +300,17 @@ function scene:create( event )
 
 	local function listener( event )
 		if distance(fishA) < 60 then
+			_G.money = _G.money + 100
 			fishA.alpha = 0
 			local score = display.newText(uiGroup, "That's right! The correct word is H A N D!", 700, 1300, native.systemFont, 120)
 			score.rotation = 90
 			score:setFillColor(0,0,0)
 			sceneGroup:insert(score)
+			display.remove(balance)
+			balance = display.newText(uiGroup, "Money: $" .. _G.money, 1150, 450, native.systemFont, 140 )
+			balance:setFillColor(0,0,0)
+			balance.rotation = 90
+			sceneGroup:insert(balance)
 			display.remove(word)
 			word = display.newText(uiGroup, " H A N D ", 1300, 2000, native.systemFont, 240)
 			word.rotation = 90
@@ -277,11 +319,19 @@ function scene:create( event )
 			timer.performWithDelay(1500, endGame, 1)
 
 		elseif distance(fishI) < 60 then
+			if _G.money > 0 then
+				_G.money = _G.money - 10
+			end
 			score = display.newText(uiGroup, "H I N D is INCORRECT!", 700, 1300, native.systemFont, 120)
 			score.rotation = 90
 			score:setFillColor(0,0,0)
 			sceneGroup:insert(score)
 			transition.fadeOut(score, {time = 1500})
+			display.remove(balance)
+			balance = display.newText(uiGroup, "Money: $" .. _G.money, 1150, 450, native.systemFont, 140 )
+			balance:setFillColor(0,0,0)
+			balance.rotation = 90
+			sceneGroup:insert(balance)
 			--Log Wrong Answer
 			if not file then
 		    	print( "File error: " .. errorString )
@@ -290,11 +340,19 @@ function scene:create( event )
 			end
 
 		elseif distance(fishU) < 60 then
+			if _G.money > 0 then
+				_G.money = _G.money - 10
+			end
 			score = display.newText(uiGroup, "H U N D is INCORRECT!", 700, 1300, native.systemFont, 120)
 			score.rotation = 90
 			score:setFillColor(0,0,0)
 			sceneGroup:insert(score)
 			transition.fadeOut(score, {time = 1500})
+			display.remove(balance)
+			balance = display.newText(uiGroup, "Money: $" .. _G.money, 1150, 450, native.systemFont, 140 )
+			balance:setFillColor(0,0,0)
+			balance.rotation = 90
+			sceneGroup:insert(balance)
 			--Log Wrong Answer
 			if not file then
 		    	print( "File error: " .. errorString )
@@ -303,11 +361,19 @@ function scene:create( event )
 			end
 
 		elseif distance(fishE) < 60 then
+			if _G.money > 0 then
+				_G.money = _G.money - 10
+			end
 			score = display.newText(uiGroup, "H E N D is INCORRECT!", 700, 1300, native.systemFont, 120)
 			score.rotation = 90
 			score:setFillColor(0,0,0)
 			sceneGroup:insert(score)
 			transition.fadeOut(score, {time = 1500})
+			display.remove(balance)
+			balance = display.newText(uiGroup, "Money: $" .. _G.money, 1150, 450, native.systemFont, 140 )
+			balance:setFillColor(0,0,0)
+			balance.rotation = 90
+			sceneGroup:insert(balance)
 			--Log Wrong Answer
 			if not file then
 		    	print( "File error: " .. errorString )
@@ -316,11 +382,19 @@ function scene:create( event )
 			end
 
 		elseif distance(fishO) < 60 then
+			if _G.money > 0 then
+				_G.money = _G.money - 10
+			end
 			score = display.newText(uiGroup, "H O N D is INCORRECT!", 700, 1300, native.systemFont, 120)
 			score.rotation = 90
 			score:setFillColor(0,0,0)
 			sceneGroup:insert(score)
 			transition.fadeOut(score, {time = 1500})
+			display.remove(balance)
+			balance = display.newText(uiGroup, "Money: $" .. _G.money, 1150, 450, native.systemFont, 140 )
+			balance:setFillColor(0,0,0)
+			balance.rotation = 90
+			sceneGroup:insert(balance)
 			--Log Wrong Answer
 			if not file then
 		    	print( "File error: " .. errorString )
