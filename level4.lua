@@ -377,7 +377,7 @@ function scene:create( event )
 			end
 
 		elseif distance(fishE) < 60 then
-			if _G.money == true then
+			if _G.cash == true then
 				_G.money = _G.money + 1000
 			else
 				_G.money = _G.money + 100

@@ -231,6 +231,7 @@ function scene:create( event )
 					sceneGroup:insert(fLine)
 					hook.x = hook.x - 60
 					else
+					print(event.phase)
 					fLine = display.newLine(mainGroup, frod.x + 150,frod.y + 140 , hook.x - 19,frod.y + 140)
 					fLine:setStrokeColor(0)
 					fLine.strokeWidth = 5
@@ -277,7 +278,7 @@ function scene:create( event )
 						label = "Raise",
 						fontSize = 60,
 						labelColor = {default = {0.7,0.01,1}, over = {0,0,0}},
-						onRelease = raiseLineRelease,
+						onEvent = raiseLineRelease,
 		}
 		upButton.rotation = 90
 		sceneGroup:insert(upButton)
@@ -343,7 +344,7 @@ function scene:create( event )
 
 		elseif distance(fishI) < 60 then
 			print("FISH I level 1")
-			if _G.money == true then
+			if _G.cash == true then
 				_G.money = _G.money + 1000
 			else
 				_G.money = _G.money + 100

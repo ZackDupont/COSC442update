@@ -39,7 +39,7 @@ function scene:create( event )
 	local sceneGroup = self.view
 
 	-- Money
-  local balance = display.newText(sceneGroup, "Money: $" .. _G.money, 1250, 550, native.systemFont, 140 )
+  local balance = display.newText(sceneGroup, "Money: $" .. _G.money, 1250, 550, native.systemFont, 100 )
   balance:setFillColor(0,0,0)
   balance.rotation = 90
 
