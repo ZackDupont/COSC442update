@@ -220,25 +220,44 @@ function scene:create( event )
 
 	local function lowerLineRelease (event)
 					display.remove(fLine)
-					fLine = display.newLine(mainGroup, frod.x + 150,frod.y + 140 , hook.x - 15,frod.y + 140)
+					if _G.speed == true then
+					fLine = display.newLine(mainGroup, frod.x + 150,frod.y + 140 , hook.x - 35,frod.y + 140)
+					fLine:setStrokeColor(0)
+					fLine.strokeWidth = 5
+					sceneGroup:insert(fLine)
+					hook.x = hook.x - 60
+					else
+					fLine = display.newLine(mainGroup, frod.x + 150,frod.y + 140 , hook.x - 19,frod.y + 140)
 					fLine:setStrokeColor(0)
 					fLine.strokeWidth = 5
 					sceneGroup:insert(fLine)
 					hook.x = hook.x - 40
+					end
 					worm.x = hook.x
 					return true
 	end
 
+
 	local function raiseLineRelease (event)
 					display.remove(fLine)
+					if _G.speed == true then
+					fLine = display.newLine(mainGroup, frod.x + 150,frod.y + 140 , hook.x + 82,frod.y + 140)
+					fLine:setStrokeColor(0)
+					fLine.strokeWidth = 5
+					sceneGroup:insert(fLine)
+					if hook.x < frod.x + 115 then
+						hook.x = hook.x + 60
+					end
+				else
 					fLine = display.newLine(mainGroup, frod.x + 150,frod.y + 140 , hook.x + 60,frod.y + 140)
 					fLine:setStrokeColor(0)
 					fLine.strokeWidth = 5
 					sceneGroup:insert(fLine)
 					if hook.x < frod.x + 115 then
 						hook.x = hook.x + 40
-						worm.x = hook.x
 					end
+				end
+					worm.x = hook.x
 					return true
 	end
 
@@ -295,7 +314,7 @@ function scene:create( event )
 
 	local function listener( event )
 		if distance(fishA) < 60 then
-			if _G.money > 0 then
+			if _G.money > 0 and _G.penalty == false then
 				_G.money = _G.money - 10
 			end
 			score = display.newText(uiGroup, "K I T A is INCORRECT!", 700, 1300, native.systemFont, 120)
@@ -316,7 +335,7 @@ function scene:create( event )
 			end
 
 		elseif distance(fishI) < 60 then
-			if _G.money > 0 then
+			if _G.money > 0 and _G.penalty == false then
 				_G.money = _G.money - 10
 			end
 			score = display.newText(uiGroup, "K I T I is INCORRECT!", 700, 1300, native.systemFont, 120)
@@ -337,7 +356,7 @@ function scene:create( event )
 			end
 
 		elseif distance(fishU) < 60 then
-			if _G.money > 0 then
+			if _G.money > 0 and _G.penalty == false then
 				_G.money = _G.money - 10
 			end
 			score = display.newText(uiGroup, "K I T U is INCORRECT!", 700, 1300, native.systemFont, 120)
@@ -358,7 +377,11 @@ function scene:create( event )
 			end
 
 		elseif distance(fishE) < 60 then
-			_G.money = _G.money + 100
+			if _G.money == true then
+				_G.money = _G.money + 1000
+			else
+				_G.money = _G.money + 100
+			end
 			fishE.alpha = 0
 			local score = display.newText(uiGroup, "That's right! The correct word is K I T E!", 700, 1300, native.systemFont, 120)
 			score.rotation = 90
@@ -377,7 +400,7 @@ function scene:create( event )
 			timer.performWithDelay(1500, endGame, 1)
 
 		elseif distance(fishO) < 60 then
-			if _G.money > 0 then
+			if _G.money > 0 and _G.penalty == false then
 				_G.money = _G.money - 10
 			end
 			score = display.newText(uiGroup, "K I T O is INCORRECT!", 700, 1300, native.systemFont, 120)
