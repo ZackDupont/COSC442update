@@ -28,14 +28,13 @@ local shop
 -- Event Handlers
 local function onHomeRelease(event)
 	--Log press
-if not file then
+	if not file then
 		print( "File error: " .. errorString )
-else
+	else
 		file:write("Returned home\n")
-end
-	
-	composer.gotoScene( "menu", "fade", 500 )
-	return true
+	end
+		composer.gotoScene( "menu", "fade", 500 )
+		return true
 end
 
 -- Tutorial handler
@@ -117,6 +116,18 @@ end
 	return true
 end
 
+-- Boss handler
+local function onBossRelease(event)
+	--Log press
+if not file then
+		print( "File error: " .. errorString )
+else
+		file:write("attempted Boss Battle\n")
+end
+	composer.gotoScene( "boss", "fade", 500 )
+	return true
+end
+
 local function onShopRelease(event)
 	--Log press
 if not file then
@@ -169,15 +180,15 @@ function scene:create( event )
 
 	-- Menu Buttons
 	homeBtn = widget.newButton{
-		left = -150,
-		top = 750,
-		width = 750,
-		height = 250,
+		left = -120,
+		top = 180,
+		width = 500,
+		height = 200,
 		defaultFile = "images/button1.png",
 		overFile = "images/button2.png",
 		label = "Main Menu",
 		font = native.DroidSans,
-		fontSize = 120,
+		fontSize = 80,
 		labelColor = {default = {0.7,0.01,1}, over = {0,0,0}},
 		onRelease = onHomeRelease
 	}
@@ -273,17 +284,32 @@ function scene:create( event )
 	}
 	level5Btn.rotation = 90
 
+	bossBtn = widget.newButton{
+		left = -200,
+		top = 1115,
+		width = 800,
+		height = 300,
+		defaultFile = "images/button1.png",
+		overFile = "images/button2.png",
+		label = "Boss Battle",
+		font = native.DroidSans,
+		fontSize = 120,
+		labelColor = {default = {0.7,0.01,1}, over = {0,0,0}},
+		onRelease = onBossRelease
+	}
+	bossBtn.rotation = 90
+
 	-- Menu Buttons
 	shopBtn = widget.newButton{
-		left = -150,
-		top = 1550,
-		width = 750,
-		height = 250,
+		left = -120,
+		top = 2180,
+		width = 500,
+		height = 200,
 		defaultFile = "images/button1.png",
 		overFile = "images/button2.png",
 		label = "Shop",
 		font = native.DroidSans,
-		fontSize = 120,
+		fontSize = 80,
 		labelColor = {default = {0.7,0.01,1}, over = {0,0,0}},
 		onRelease = onShopRelease
 	}
@@ -298,6 +324,7 @@ function scene:create( event )
 	sceneGroup:insert(level3Btn)
 	sceneGroup:insert(level4Btn)
 	sceneGroup:insert(level5Btn)
+	sceneGroup:insert(bossBtn)
 	sceneGroup:insert(shopBtn)
 
 end
